@@ -19,31 +19,37 @@
 
 
 ## 기능적 요구사항
-* [ ] 상품을 `수집`할 수 있다.
+* [ ] 상품을 `수집`할 수 있다. 
+  * [ ] `mallId` 내 상품 식별값은 중복되어서는 안된다.
 ``` json
-"POST /api/v1/product"
+"POST /api/v1/products"
 
 {
-  "productId": "String",
-  "title": "String",
-  "content": "String",
-  "category": "String",
-  "price": "String",
-  "imageUrl": "String"
+  "mallId": "String", // 입점가게 고유 식별값
+  "productId": "String", // 해당 상품 고유 식별값
+  "title": "String", // 상품 명
+  "content": "String", // 상품 소개
+  "category": "String", // 카테고리
+  "price": "String", // 상품 가격
+  "imageUrl": "String" // 메인 이미지 URL
 }
 ```
 * [ ] 상품 수집 시 `image url`을 받으면 실제 해당 이미지를 수집하여 `localstack S3`에 업로드한다.
 * [ ] `productId`가 동일하면 상품을 `업데이트`한다. 상품이 업데이트되면 이미지를 재수집한다.
   * [ ] 기존 이미지는 삭제한다. 
-* [ ] 상품을 `조회`할 수 있다. 조회 시 실제 수집한 이미지의 경로도 반환한다. 
+* [ ] 상품을 `전체 조회`할 수 있다. 조회 시 실제 수집한 이미지의 경로도 반환한다. 
   * [ ] 수집되지 않은 상품은 조회되지 않는다.
 ```json
 "GET /api/v1/products"
 ```
+* [ ] 상품을 `상세조회` 할 수 있다.
+```json
+"GET /api/v1/products/{productId}"
+```
 * [ ] 상품을 `삭제`할 수 있다.
   * [ ] 상품이 삭제되면 S3에서 해당 상품의 이미지도 삭제한다.
 ```json
-"DELETE /api/v1/{productId}"
+"DELETE /api/v1/products/{productId}"
 ```
 
 ## 비기능적 요구사항
