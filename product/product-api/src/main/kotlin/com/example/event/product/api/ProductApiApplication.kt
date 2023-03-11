@@ -1,11 +1,11 @@
-package com.example.event.streaming
+package com.example.event.product.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class EventStreamingWithKafkaConnectApplication
+class ProductApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<EventStreamingWithKafkaConnectApplication>(*args)
+	runApplication<ProductApiApplication>(*args)
 }
