@@ -8,5 +8,5 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
-	implementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.6.1") // 임베디드디비 스프링 3.0 테스트버전인가??
+	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.6.1") // 임베디드디비 스프링 3.0 테스트버전인가??
 }
