@@ -1,0 +1,5 @@
+de: # test용 embedded mongodb 버전 지정
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 6.0.4

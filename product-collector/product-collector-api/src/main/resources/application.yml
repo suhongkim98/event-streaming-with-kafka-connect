@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  data:
+    mongodb:
+      host: localhost # root? application.yml? ???? nodeport ???? ??????
+      port: 27017
+      database: example-stream
+      username: root
+      password: root
+      authentication-database: admin
