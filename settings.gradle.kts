@@ -1,3 +1,6 @@
 rootProject.name = "streaming"
 
-include("product:product-api","product:product-enum")
+include("tests:kotest",
+    "product-collector:product-collector-api",
+    "product-collector:product-collector-enum"
+)
