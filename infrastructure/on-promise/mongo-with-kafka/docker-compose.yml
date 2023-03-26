@@ -32,6 +32,21 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
 
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui
+    ports:
+      - "9000:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:29092 #kafka-2:29093,kafka-3:29094
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - broker
+      - zookeeper
+    networks:
+      - localnet
+
   connect:
     image: dcollect-cp-kafka-connect-base:1.0
     build:
@@ -88,6 +103,8 @@ services:
     image: confluentinc/cp-schema-registry:7.3.2
     hostname: schema-registry
     container_name: schema-registry
+    ports:
+      - "8081:8081"
     depends_on:
       - broker
     networks:
