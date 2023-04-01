@@ -15,7 +15,6 @@
 * `kafka connect`, `kafka streams`
 * `kubernetes(minikube 사용)`
 * `mongodb`
-* `localstack`
 
 
 ## 기능적 요구사항
@@ -33,7 +32,7 @@
   "imageUrl": "String" // 메인 이미지 URL
 }
 ```
-* [ ] 상품 수집 시 `image url`을 받으면 실제 해당 이미지를 수집하여 `localstack S3`에 업로드한다.
+* [ ] 상품 수집 시 `image url`을 받으면 해당 이미지를 수집한다.
 * [ ] `productId`가 동일하면 상품을 `업데이트`한다. 상품이 업데이트되면 이미지를 재수집한다.
   * [ ] 기존 이미지는 삭제한다. 
 * [ ] 상품을 `전체 조회`할 수 있다. 조회 시 실제 수집한 이미지의 경로도 반환한다. 
