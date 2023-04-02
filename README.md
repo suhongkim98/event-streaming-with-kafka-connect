@@ -56,13 +56,34 @@
 * [X] `마이크로서비스 아키텍처`로 설계, 개발한다.
 * [X] `웹플럭스`를 이용해 비동기, 논블로킹하게 전반적인 시스템을 스트림 형태로 구현한다.
 * [X] `Mongo`, `Kafka`는 `on-promise`에 구축한다.
-* [ ] `producer`, `consumer`는 `k3s`에 구축한다.
+* [X] `producer`, `consumer`는 `k3s`에 구축한다.
 * [ ] `nGrinder`나 다른 도구를 이용해 성능측정 해보기, 그 과정에서 Auto Scaling 확인한다.
 
 ## 시작하기
+
+### 1. infra 구성
 먼저 `infra` 환경 구성을 한다.
 ```bash
 cd ./infrastructure
 
 cat README.md
+```
+
+### 2. product-collector endpoint 확인
+`product-collector` 는 쿠버네티스에서 서비스 타입 `NodePort`로 외부에 노출하고 있습니다.
+
+즉 쿠버네티스 노드의 아이피와 포트를 확인합니다.
+#### endpoint 확인
+```bash
+colima status
+```
+
+#### port 확인
+```bash
+kubectl get svc
+```
+
+#### API Call
+```agsl
+POST http://{ip}:{port}/api/..
 ```
