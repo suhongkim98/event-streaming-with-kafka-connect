@@ -8,5 +8,7 @@ include("tests:kotest",
     "image-collector:image-collector-processor",
     "image-collector:image-collector-enum",
     "image-remover:image-remover-processor",
-    "image-remover:image-remover-enum"
+    "image-remover:image-remover-enum",
+    "complete-product-uploader:complete-product-uploader-api",
+    "complete-product-uploader:complete-product-uploader-enum"
 )

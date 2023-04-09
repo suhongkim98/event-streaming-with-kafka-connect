@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  data:
+    mongodb:
+      host: 192.168.106.2
+      port: 35001
+      database: example-stream
+      authentication-database: admin
+
+  kafka:
+    bootstrap-servers: 192.168.106.2:9092
+    consumer-group-id: uploader-1
+    image-processor-input-topic: example-stream.image-processor
+
