@@ -31,7 +31,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "example-stream.product:1:1,example-stream.product.upsert:1:1,example-stream.product.delete:1:1"
+      KAFKA_CREATE_TOPICS: "example-stream.product:1:1,example-stream.product.upsert:1:1,example-stream.product.delete:1:1,example-stream.image-processor:1:1"
 
   kafka-ui:
     container_name: kafka-ui
