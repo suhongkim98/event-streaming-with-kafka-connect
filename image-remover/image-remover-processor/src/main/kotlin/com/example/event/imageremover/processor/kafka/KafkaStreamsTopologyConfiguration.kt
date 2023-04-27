@@ -55,6 +55,7 @@ class KafkaStreamsTopologyConfiguration {
             .requiredString("operationType")
             .requiredString("productId")
             .optionalString("collectedImageUrl")
+            .optionalString("originalProduct")
             .optionalBoolean("removedSuccess")
             .endRecord()
 

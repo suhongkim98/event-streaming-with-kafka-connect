@@ -57,6 +57,7 @@ class KafkaStreamsTopologyConfiguration {
             .requiredString("operationType")
             .requiredString("productId")
             .optionalString("collectedImageUrl")
+            .optionalString("originalProduct")
             .optionalBoolean("removedSuccess")
             .endRecord()
         //
@@ -76,6 +77,7 @@ class KafkaStreamsTopologyConfiguration {
             record.put("operationType", "insert")
             record.put("productId", productId)
             record.put("collectedImageUrl",collectedUrl)
+            record.put("originalProduct", objectMapper.writeValueAsString(value.get("fullDocument")))
 
             record
         }.to(imageTopic)

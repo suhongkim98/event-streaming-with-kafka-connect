@@ -1,6 +1,10 @@
 package com.example.event.completeproductuploader.api
 
+import com.example.event.completeproductuploader.api.completeproduct.dto.RequestUpsertCompleteProductDto
+import com.example.event.completeproductuploader.api.completeproduct.service.CompleteProductService
 import com.example.event.completeproductuploader.api.kafka.KafkaReactiveConsumer
+import com.fasterxml.jackson.databind.ObjectMapper
+import org.apache.avro.generic.GenericRecord
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -8,7 +12,9 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class CompleteProductUploaderApiApplication(
-    private val imageProcessorStreamsReceiver: KafkaReactiveConsumer<String, String>,
+    private val imageProcessorStreamsReceiver: KafkaReactiveConsumer<String, GenericRecord>,
+    private val completeProductService: CompleteProductService,
+    private val objectMapper: ObjectMapper,
 ) : CommandLineRunner {
 
     companion object {
@@ -19,8 +25,23 @@ class CompleteProductUploaderApiApplication(
         imageProcessorStreamsReceiver.consume()
             .map {
                 logger.info("key ${it.key()} value ${it.value()}")
-                // TODO : 받아서 몽고디비에 반영 구현
-                it
+                val record = it.value()
+                val operationType = record.get("operationType").toString()
+
+                if(operationType == "delete") {
+                    completeProductService.deleteProduct(record.get("productId").toString())
+                }
+                if(operationType == "upsert") {
+                    val jsonNode = objectMapper.readTree(record.get("fullDocument").toString())
+                    completeProductService.upsertProduct(RequestUpsertCompleteProductDto(
+                        productId = jsonNode.get("productId").toString(),
+                        mallId = jsonNode.get("mallId").toString(),
+                        content = jsonNode.get("content").toString(),
+                        imageUrl = record.get("collectedImageUrl").toString(),
+                        price = jsonNode.get("price").toString(),
+                        title = jsonNode.get("title").toString(),
+                    ))
+                }
             }
             .subscribe()
     }
