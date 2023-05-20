@@ -1,33 +1,33 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: example-diff-checker
+  name: diff-checker
   labels:
-    account: example-diff-checker
+    account: diff-checker
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-diff-checker
+  name: diff-checker
   labels:
-    app: example-diff-checker
+    app: diff-checker
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example-diff-checker
+      app: diff-checker
       version: v1
   template:
     metadata:
       labels:
-        app: example-diff-checker
+        app: diff-checker
         version: v1
     spec:
-      serviceAccountName: example-diff-checker
+      serviceAccountName: diff-checker
       containers:
-        - name: example-diff-checker
-          image: 192.168.106.2:5000/example-diff-checker:latest
+        - name: diff-checker
+          image: 127.0.0.1:5001/diff-checker:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

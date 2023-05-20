@@ -24,14 +24,13 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENERS: LISTENER_1://0.0.0.0:29092,LISTENER_2://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://192.168.106.2:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://192.168.65.4:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_1:PLAINTEXT,LISTENER_2:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "example-stream.product:1:1,example-stream.product.upsert:1:1,example-stream.product.delete:1:1,example-stream.image-processor:1:1"
 
   kafka-ui:
     container_name: kafka-ui
@@ -158,7 +157,7 @@ services:
     image: "registry:latest"
     container_name: image-registry
     ports:
-      - "5000:5000"
+      - "5001:5000"
     networks:
       - localnet
 

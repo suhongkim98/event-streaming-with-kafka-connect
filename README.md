@@ -13,7 +13,7 @@
 * `kotlin`, `coroutine`
 * `spring boot 3.0`, `webflux`
 * `kafka connect`, `kafka streams`
-* `kubernetes(minikube 사용)`
+* `kubernetes`
 * `mongodb`
 
 
@@ -60,9 +60,11 @@
 * [ ] `nGrinder`나 다른 도구를 이용해 성능측정 해보기, 그 과정에서 Auto Scaling 확인한다.
 
 ## 시작하기
+* `java 17`을 설치한다.
+* `docker desktop`을 설치하고 `enable kubernetes`를 체크하여 쿠버네티스를 활성화한다.
 
 ### 1. infra 구성
-먼저 `infra` 환경 구성을 한다.
+`infra` 환경 구성을 한다.
 ```bash
 cd ./infrastructure
 
@@ -73,10 +75,6 @@ cat README.md
 `product-collector` 는 쿠버네티스에서 서비스 타입 `NodePort`로 외부에 노출하고 있습니다.
 
 즉 쿠버네티스 노드의 아이피와 포트를 확인합니다.
-#### endpoint 확인
-```bash
-colima status
-```
 
 #### port 확인
 ```bash
@@ -85,5 +83,5 @@ kubectl get svc
 
 #### API Call
 ```agsl
-POST http://{ip}:{port}/api/..
+POST http://localhost:{port}/api/..
 ```

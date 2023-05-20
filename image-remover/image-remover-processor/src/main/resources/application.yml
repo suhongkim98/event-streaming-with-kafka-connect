@@ -1,4 +1,4 @@
 spring:
   kafka:
-    bootstrap-servers: 192.168.106.2:9092
-    schema-registry-url: http://192.168.106.2:8081
+    bootstrap-servers: 192.168.65.4:9092
+    schema-registry-url: http://192.168.65.4:8081
