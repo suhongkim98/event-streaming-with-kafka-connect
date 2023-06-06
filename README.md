@@ -32,22 +32,21 @@
   "imageUrl": "String" // 메인 이미지 URL
 }
 ```
-* [ ] 상품 수집 시 `image url`을 받으면 해당 이미지를 수집한다.
-* [ ] `productId`가 동일하면 상품을 `업데이트`한다. 상품이 업데이트되면 이미지를 재수집한다.
-  * [ ] 기존 이미지는 삭제한다. 
-* [ ] 상품을 `전체 조회`할 수 있다. 조회 시 실제 수집한 이미지의 경로도 반환한다. 
-  * [ ] 수집되지 않은 상품은 조회되지 않는다.
+* [X] 상품 수집 시 `image url`을 받으면 해당 이미지를 수집한다.
+* [X] `productId`가 동일하면 상품을 `업데이트`한다. 상품이 업데이트되면 이미지를 재수집한다.
+* [X] 상품을 `전체 조회`할 수 있다. 조회 시 실제 수집한 이미지의 경로도 반환한다. 
+  * [X] 수집되지 않은 상품은 조회되지 않는다.
 ```json
-"GET /api/v1/products"
+"GET /api/v1/complete-products"
 ```
 * [ ] 상품을 `상세조회` 할 수 있다.
 ```json
-"GET /api/v1/products/{productId}"
+"GET /api/v1/complete-products/{productId}"
 ```
 * [ ] 상품을 `삭제`할 수 있다.
   * [ ] 상품이 삭제되면 S3에서 해당 상품의 이미지도 삭제한다.
 ```json
-"DELETE /api/v1/products/{productId}"
+"DELETE /api/v1/complete-products/{productId}"
 ```
 
 ## 비기능적 요구사항

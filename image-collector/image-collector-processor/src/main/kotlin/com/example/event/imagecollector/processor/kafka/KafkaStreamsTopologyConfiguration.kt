@@ -74,7 +74,7 @@ class KafkaStreamsTopologyConfiguration {
             val collectedUrl = mockUploadS3(productId,imageUrl)
 
             val record = GenericData.Record(imageCollectorAvroSchema) // 내가 새로 정의한 avro 스키마를 가져다가 레코드 구성하고
-            record.put("operationType", "insert")
+            record.put("operationType", "upsert")
             record.put("productId", productId)
             record.put("collectedImageUrl",collectedUrl)
             record.put("originalProduct", objectMapper.writeValueAsString(value.get("fullDocument")))
