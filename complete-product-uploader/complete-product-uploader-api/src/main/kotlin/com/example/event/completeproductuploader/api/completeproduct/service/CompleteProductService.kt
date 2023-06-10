@@ -2,6 +2,8 @@ package com.example.event.completeproductuploader.api.completeproduct.service
 
 import com.example.event.completeproductuploader.api.completeproduct.domain.CompleteProduct
 import com.example.event.completeproductuploader.api.completeproduct.dto.RequestUpsertCompleteProductDto
+import com.example.event.completeproductuploader.api.completeproduct.dto.ResponseCompleteProductDto
+import com.example.event.completeproductuploader.api.completeproduct.exception.NotFoundCompleteProductException
 import com.example.event.completeproductuploader.api.completeproduct.repository.CompleteProductRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -22,5 +24,11 @@ class CompleteProductService @Autowired constructor(
 
     fun findAllCompleteProductByPageable(pageable: Pageable): Page<CompleteProduct> {
         return completeProductRepository.findAll(pageable)
+    }
+
+    fun findCompleteProductByProductId(productId: String): ResponseCompleteProductDto {
+        val completeProduct = completeProductRepository.findByProductId(productId)
+            ?: throw NotFoundCompleteProductException()
+        return ResponseCompleteProductDto.of(completeProduct)
     }
 }

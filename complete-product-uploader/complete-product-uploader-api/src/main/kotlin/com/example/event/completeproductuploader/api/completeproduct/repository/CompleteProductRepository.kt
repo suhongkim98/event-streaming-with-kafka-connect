@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface CompleteProductRepository : MongoRepository<CompleteProduct, String> {
-    fun findByProductId(productId: String)
+    fun findByProductId(productId: String): CompleteProduct?
     override fun findAll(pageable: Pageable): Page<CompleteProduct>
 }
