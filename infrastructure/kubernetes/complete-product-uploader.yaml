@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: complete-product-uploader
+  labels:
+    account: complete-product-uploader
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: complete-product-uploader
+  labels:
+    app: complete-product-uploader
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: complete-product-uploader
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: complete-product-uploader
+        version: v1
+    spec:
+      serviceAccountName: complete-product-uploader
+      containers:
+        - name: complete-product-uploader
+          image: 127.0.0.1:5001/complete-product-uploader:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

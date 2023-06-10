@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: image-remover
+  labels:
+    account: image-remover
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-remover
+  labels:
+    app: image-remover
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-remover
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: image-remover
+        version: v1
+    spec:
+      serviceAccountName: image-remover
+      containers:
+        - name: image-remover
+          image: 127.0.0.1:5001/image-remover:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

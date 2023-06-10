@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: image-collector
+  labels:
+    account: image-collector
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-collector
+  labels:
+    app: image-collector
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-collector
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: image-collector
+        version: v1
+    spec:
+      serviceAccountName: image-collector
+      containers:
+        - name: image-collector
+          image: 127.0.0.1:5001/image-collector:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

@@ -60,12 +60,10 @@ kc example-stream.product
 모든 애플리케이션의 `application.yml`을 위 명령어 아이피로 수정합니다.
 
 #### uploader 빌드 예시
-로컬 레지스트리에 이미지를 업로드하는 명령어입니다.
+로컬 레지스트리에 이미지를 업로드하는 `build.sh` 스크립트를 실행합니다. `루트 디렉토리`에서 진행합니다.
 
 ```bash
-./gradlew bootJar -p ./diff-checker/diff-checker-consumer
-
-docker buildx build -f ./Dockerfile ./diff-checker/diff-checker-consumer --push -t 127.0.0.1:5001/diff-checker
+sh infrastructure/build.sh
 ```
 
 ### k3s deploy
