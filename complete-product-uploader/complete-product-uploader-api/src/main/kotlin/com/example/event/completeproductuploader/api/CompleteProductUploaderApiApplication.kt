@@ -4,6 +4,7 @@ import com.example.event.completeproductuploader.api.completeproduct.dto.Request
 import com.example.event.completeproductuploader.api.completeproduct.service.CompleteProductService
 import com.example.event.completeproductuploader.api.kafka.KafkaReactiveConsumer
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.reactor.mono
 import org.apache.avro.generic.GenericRecord
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
@@ -22,28 +23,30 @@ class CompleteProductUploaderApiApplication(
     }
 
     override fun run(vararg args: String?) {
-        imageProcessorStreamsReceiver.consume()
-            .map {
-                logger.info("key ${it.key()} value ${it.value()}")
-                val record = it.value()
-                val operationType = record.get("operationType").toString()
+        val deleteRecord = imageProcessorStreamsReceiver.consume().filter {
+            val record = it.value()
+            val operationType = record.get("operationType").toString()
+            operationType === "delete"
+        }.map {
+            mono {completeProductService.deleteProduct(it.value().get("productId").toString())}
+        }.subscribe()
 
-                if(operationType == "delete") {
-                    completeProductService.deleteProduct(record.get("productId").toString())
-                }
-                if(operationType == "upsert") {
-                    val jsonNode = objectMapper.readTree(record.get("fullDocument").toString())
-                    completeProductService.upsertProduct(RequestUpsertCompleteProductDto(
-                        productId = jsonNode.get("productId").toString(),
-                        mallId = jsonNode.get("mallId").toString(),
-                        content = jsonNode.get("content").toString(),
-                        imageUrl = record.get("collectedImageUrl").toString(),
-                        price = jsonNode.get("price").toString(),
-                        title = jsonNode.get("title").toString(),
-                    ))
-                }
-            }
-            .subscribe()
+        val upsertRecord = imageProcessorStreamsReceiver.consume().filter {
+            val record = it.value()
+            val operationType = record.get("operationType").toString()
+            operationType === "upsert"
+        }.map {
+            val jsonNode = objectMapper.readTree(it.value().get("fullDocument").toString())
+
+            mono {completeProductService.upsertProduct(RequestUpsertCompleteProductDto(
+                productId = jsonNode.get("productId").toString(),
+                mallId = jsonNode.get("mallId").toString(),
+                content = jsonNode.get("content").toString(),
+                imageUrl = it.value().get("collectedImageUrl").toString(),
+                price = jsonNode.get("price").toString(),
+                title = jsonNode.get("title").toString(),
+            ))}
+        }.subscribe()
     }
 }
 

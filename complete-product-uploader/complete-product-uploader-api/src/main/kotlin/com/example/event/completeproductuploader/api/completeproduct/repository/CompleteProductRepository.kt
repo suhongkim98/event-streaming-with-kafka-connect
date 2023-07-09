@@ -1,11 +1,8 @@
 package com.example.event.completeproductuploader.api.completeproduct.repository
 
 import com.example.event.completeproductuploader.api.completeproduct.domain.CompleteProduct
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
-import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 
-interface CompleteProductRepository : MongoRepository<CompleteProduct, String> {
-    fun findByProductId(productId: String): CompleteProduct?
-    override fun findAll(pageable: Pageable): Page<CompleteProduct>
+interface CompleteProductRepository : ReactiveMongoRepository<CompleteProduct, String> {
+    suspend fun findByProductId(productId: String): CompleteProduct?
 }
