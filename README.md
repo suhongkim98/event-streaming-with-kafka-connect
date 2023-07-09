@@ -5,24 +5,21 @@
 ## 학습목표
 * `코틀린`과 `코루틴`, `웹플럭스`, `reactive mongodb`를 통해 코틀린에서의 비동기, 논블로킹 프로그래밍을 내 것으로 만든다.
 * `카프카 커넥트`를 이용하여 `CDC`를 구현해보고 `스트림즈`로 데이터베이스의 변화 이벤트를 받아 가공하여 다른 토픽에 넣어본다.
-* `쿠버네티스`의 `HPA`를 이용해 `Auto Scaling`을 구현하고 `Scale In` 과정에서 데이터 유실을 고민해본다.
 * `NoSQL`의 장점을 체감해본다.
 
 
 ## 기술 스택
-* `kotlin`, `coroutine`
-* `spring boot 3.0`, `webflux`
+* `spring boot 3.x`, `kotlin`
+* `webflux`, `coroutine`
 * `kafka connect`, `kafka streams`
 * `kubernetes`
 * `mongodb`
-
 
 ## 기능적 요구사항
 * [X] 상품을 `수집`할 수 있다. 
   * [X] `mallId` 내 상품 식별값은 중복되어서는 안된다.
 ``` json
 "POST /api/v1/products"
-
 {
   "mallId": "String", // 입점가게 고유 식별값
   "productId": "String", // 해당 상품 고유 식별값
@@ -39,24 +36,28 @@
 ```json
 "GET /api/v1/complete-products"
 ```
-* [ ] 상품을 `상세조회` 할 수 있다.
+* [X] 상품을 `상세조회` 할 수 있다.
 ```json
 "GET /api/v1/complete-products/{productId}"
 ```
-* [ ] 상품을 `삭제`할 수 있다.
-  * [ ] 상품이 삭제되면 S3에서 해당 상품의 이미지도 삭제한다.
+* [X] 상품을 `삭제`할 수 있다.
+  * [X] 상품이 삭제되면 S3에서 해당 상품의 이미지도 삭제한다.
 ```json
 "DELETE /api/v1/complete-products/{productId}"
 ```
 
 ## 비기능적 요구사항
-* [X] `코틀린`으로 구현한다.
+* [X] `코틀린`으로 구현한다. 
+  * 코틀린으로 처리 가능한 부분은 `reactive streams` 대신 `kotlin coroutine`으로 변환하여 작업한다.
 * [X] `MSA`를 고려하며 `multi module` 로 구성하기!
 * [X] `마이크로서비스 아키텍처`로 설계, 개발한다.
 * [X] `웹플럭스`를 이용해 비동기, 논블로킹하게 전반적인 시스템을 스트림 형태로 구현한다.
 * [X] `Mongo`, `Kafka`는 `on-promise`에 구축한다.
 * [X] `producer`, `consumer`는 `k3s`에 구축한다.
 * [ ] `nGrinder`나 다른 도구를 이용해 성능측정 해보기, 그 과정에서 Auto Scaling 확인한다.
+
+## Architecture
+![architecture](./repository-docs/architecture.png)
 
 ## 시작하기
 * `java 17`을 설치한다.
